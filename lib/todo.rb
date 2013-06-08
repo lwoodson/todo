@@ -1,5 +1,6 @@
 require "todo/version"
-require "todo/todo_file_parser"
+require "todo/item"
+require "todo/item_renderer"
 
 module Todo
   # Your code goes here...
