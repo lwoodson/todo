@@ -5,7 +5,7 @@ module Todo
     @commands = {}
 
     def self.register(klass)
-      base = klass.name.downcase
+      base = klass.name.downcase.split("::")[-1]
       
       (0..base.size).each do |i|
         @commands[base[0..i]] = klass 
