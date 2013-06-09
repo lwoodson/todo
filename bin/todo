@@ -16,5 +16,6 @@ Usage:
 end
 
 cmd_str = ARGV.shift
-command = Todo::Commands.lookup(cmd_str)
+command = Todo::Commands.lookup(cmd_str) || Todo::Commands.default
+Trollop.die "#{cmd_str} is not a todo command" unless command
 command.new.execute
