@@ -1,2 +1,20 @@
-#!/usr/bin/ruby
-p 'howdy'
+#!/usr/bin/env ruby
+# TODO: THIS IS A HACK, REMOVE LATER.
+$: << 'lib'
+require 'todo'
+require 'trollop'
+
+options = Trollop::options do
+  banner <<-EOS
+Lightweight project management via TODO comments and files.
+
+Usage:
+        todo command [options]
+
+  EOS
+  # opt :status, "Status of the item (todo, working, done)", :default => 'todo'
+end
+
+cmd_str = ARGV.shift
+command = Todo::Commands.lookup(cmd_str)
+command.new.execute
