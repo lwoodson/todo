@@ -3,6 +3,10 @@ require "todo/item"
 require "todo/item_renderer"
 require "todo/file_parser"
 
+Dir.glob('lib/todo/commands/*.rb') do |cmd_file|
+  load cmd_file
+end
+
 module Todo
   # Your code goes here...
 end
