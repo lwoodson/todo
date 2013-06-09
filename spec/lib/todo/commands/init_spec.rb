@@ -28,6 +28,12 @@ describe Todo::Commands::Init do
 
     it "should have a WORKING file in the .todo directory" do
       @command.execute
+      File.exists?(@working_path).should == true
+    end
+
+    it "should have a DONE file in the .todo directory" do
+      @command.execute
+      File.exists?(@done_path).should == true
     end
 
     it "should have a symlink from $ROOT/TODO to $ROOT/.todo/TODO" do
