@@ -17,4 +17,11 @@ describe Todo::Commands do
       end
     end
   end
+
+  describe "#default" do
+    it "should return a class that responds to #execute" do
+      Todo::Commands.default.instance_methods.grep(/^execute$/)
+        .should == [:execute]
+    end
+  end
 end
