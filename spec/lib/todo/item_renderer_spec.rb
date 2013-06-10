@@ -24,9 +24,9 @@ describe Todo::ItemRenderer do
       context "with a title only" do
         before {@item = Todo::Item.new{|item| item.title = 'test'}}
 
-        it 'should render "1. [TITLE]" to the stream' do
+        it 'should render "1. [TITLE]\n" to the stream' do
           rewind_after {@renderer.render_output(@item)}
-          @stream.read.should == "1.   TEST"
+          @stream.read.should == "1.   TEST\n"
         end
       end
 
@@ -38,9 +38,9 @@ describe Todo::ItemRenderer do
           end
         end
 
-        it 'should render "1. [TITLE]\n[LINE]" to the stream' do
+        it 'should render "1. [TITLE]\n[LINE]\n" to the stream' do
           rewind_after{@renderer.render_output(@item)}
-          @stream.read.should == "1.   TEST\n     This is a test."
+          @stream.read.should == "1.   TEST\n     This is a test.\n"
         end
       end
 
@@ -55,7 +55,7 @@ describe Todo::ItemRenderer do
 
         it 'should render "1. [TITLE]\n[LINE1]\n[LINE2]" to the stream' do
           rewind_after {@renderer.render_output(@item)}
-          @stream.read.should == "1.   TEST\n     This is a test.\n     It is only a test."
+          @stream.read.should == "1.   TEST\n     This is a test.\n     It is only a test.\n"
         end
       end
     end
@@ -69,9 +69,9 @@ describe Todo::ItemRenderer do
           ]
         end
 
-        it 'should render "1. [TITLE]\n\n2.[TITLE]" to the stream' do
+        it 'should render "1. [TITLE]\n\n2.[TITLE]\n" to the stream' do
           rewind_after {@renderer.render_output(@items)}
-          @stream.read.should == "1.   ONE\n\n2.   TWO"
+          @stream.read.should == "1.   ONE\n\n2.   TWO\n"
         end
       end
 
@@ -84,9 +84,9 @@ describe Todo::ItemRenderer do
           ]
         end
 
-        it 'should render "1.   [TITLE]\n\n2.  [TITLE]\n\n3.   [TITLE]" to the stream' do
+        it 'should render "1.   [TITLE]\n\n2.  [TITLE]\n\n3.   [TITLE]\n" to the stream' do
           rewind_after {@renderer.render_output(@items)}
-          @stream.read.should == "1.   ONE\n\n2.   TWO\n\n3.   THREE"
+          @stream.read.should == "1.   ONE\n\n2.   TWO\n\n3.   THREE\n"
         end
       end
     end
@@ -124,7 +124,7 @@ describe Todo::ItemRenderer do
         lines.shift.should == "\n"
         lines.shift.should == "3.   THREE\n"
         lines.shift.should == "     line 3.1\n"
-        lines.shift.should == "     line 3.2"
+        lines.shift.should == "     line 3.2\n"
         lines.shift.should == nil
       end
     end

@@ -2,6 +2,7 @@ module Todo
   class ItemRenderer
     FORMAT = "%-5s%s"
     EMPTY_STR = ''
+    SEPARATOR = "\n"
     ITEM_SEPARATOR = "\n\n"
     attr_reader :stream
     def initialize(stream=STDOUT)
@@ -12,7 +13,11 @@ module Todo
       items = Array(item_or_items)
       items.each_with_index do |item, i|
         stream.write(item_as_str(i, item))
-        stream.write(ITEM_SEPARATOR) unless is_last_item?(items, i)
+        if is_last_item?(items, i)
+          stream.write(SEPARATOR)
+        else
+          stream.write(ITEM_SEPARATOR)
+        end
       end
     end
 
