@@ -13,7 +13,7 @@ module Todo
         paths.each do |path|
           next unless File.size?(path)
           File.open(path, 'r') do |file|
-            file.readlines.each do |line|
+            file.readlines.map(&:strip).each do |line|
               next if just_whitespace?(line)
               if has_start_marker?(line)
                 items << Todo::Item.new do |item|
@@ -29,6 +29,10 @@ module Todo
     end
 
     private
+    def strip
+      lambda {|line| line.strip}
+    end
+
     def just_whitespace?(str)
       str =~ /^\s*$/
     end

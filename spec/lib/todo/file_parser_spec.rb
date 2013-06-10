@@ -45,7 +45,7 @@ describe Todo::FileParser do
 
       context "with a multi=line todo item" do
         before do
-          path = temp_file('test', "* this is a test\nIt is only a test.")
+          path = temp_file('test', "* this is a test   \nIt is only a test.   ")
           @parser = Todo::FileParser.new(path)
         end
 
