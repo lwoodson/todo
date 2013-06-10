@@ -17,7 +17,7 @@ module Todo
     end
 
     def self.default
-      self.lookup('init')
+      self.lookup('list')
     end
   end
 end
