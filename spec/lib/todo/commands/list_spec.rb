@@ -33,9 +33,20 @@ describe Todo::Commands::List do
     before {write_todo "\n\n"}
 
     describe "#execute" do
-      it "should render 'There are no TODO items currently.'" do
+      it "should render 'There is nothing todo.'" do
         @command.execute
-        check_stream {|str| str.should == 'There are no TODO items currently.'}
+        check_stream {|str| str.should == "There is nothing todo.\n"}
+      end
+    end
+  end
+
+  context "with populated TODO file" do
+    before {write_todo "* test one\n* test two"}
+
+    describe "#execute" do
+      it "should render items in TODO file" do
+        @command.execute
+        check_stream {|str| str.should == "1.   TEST ONE\n\n2.   TEST TWO\n"}
       end
     end
   end
