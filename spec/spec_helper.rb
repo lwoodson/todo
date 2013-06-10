@@ -51,6 +51,15 @@ module Todo
     def todo_contents
       File.read(Todo::Tests::TODO_SYMLINK)
     end
+
+    def test_stream
+      @stream = StringIO.new
+    end
+
+    def stream_contents
+      @stream.rewind
+      @stream.read
+    end
   end
 end
 

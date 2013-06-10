@@ -2,15 +2,9 @@ require 'spec_helper'
 require_relative 'shared'
 
 describe Todo::Commands::List do
-  def check_stream
-    @stream.rewind
-    yield(@stream.read)
-  end
-
   before do
-    @stream = StringIO.new
     @command = Todo::Commands::List.new :parent => test_parent,
-                                        :stream => @stream
+                                        :stream => test_stream
   end
 
   context "with no existing project" do
@@ -35,7 +29,7 @@ describe Todo::Commands::List do
     describe "#execute" do
       it "should render 'There is nothing todo.'" do
         @command.execute
-        check_stream {|str| str.should == "There is nothing todo.\n"}
+        stream_contents.should == "There is nothing todo.\n"
       end
     end
   end
@@ -46,7 +40,7 @@ describe Todo::Commands::List do
     describe "#execute" do
       it "should render items in TODO file" do
         @command.execute
-        check_stream {|str| str.should == "1.   TEST ONE\n\n2.   TEST TWO\n"}
+        stream_contents.should == "1.   TEST ONE\n\n2.   TEST TWO\n"
       end
     end
   end
