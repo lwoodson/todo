@@ -17,5 +17,9 @@ Todo::Commands.constants.each do |const_sym|
 end
 
 module Todo
-  # Your code goes here...
+  TODO_DIR = '.todo'
+  TODO_FILE = File.join(TODO_DIR, 'TODO')
+  WORKING_FILE = File.join(TODO_DIR, 'WORKING')
+  DONE_FILE = File.join(TODO_DIR, 'DONE')
+  TODO_SYMLINK = 'TODO'
 end

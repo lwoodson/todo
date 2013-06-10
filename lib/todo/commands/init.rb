@@ -8,11 +8,11 @@ module Todo
 
       def initialize(opts={})
         @parent = opts[:parent] || '.'
-        @root = File.join(@parent, '.todo')
-        @todo_path = File.join(@root, 'TODO')
-        @symlink_path = File.join(@parent, 'TODO')
-        @working_path = File.join(@root, 'WORKING')
-        @done_path = File.join(@root, 'DONE')
+        @root = File.join(@parent, Todo::TODO_DIR)
+        @todo_path = File.join(@parent, Todo::TODO_FILE)
+        @symlink_path = File.join(@parent, Todo::TODO_SYMLINK)
+        @working_path = File.join(@parent, Todo::WORKING_FILE)
+        @done_path = File.join(@parent, Todo::DONE_FILE)
       end
 
       def execute

@@ -4,15 +4,15 @@ require 'fileutils'
 
 describe Todo::Commands::Init do
   before do
-    @dir = File.join(Dir.tmpdir, 'todo_tests')
-    @root_path = File.join(@dir, '.todo')
-    @todo_path = File.join(@root_path, 'TODO')
-    @working_path = File.join(@root_path, 'WORKING')
-    @done_path = File.join(@root_path, 'DONE')
-    @symlink_path = File.join(@dir, 'TODO')
-    FileUtils.rm_rf(@dir)
-    FileUtils.mkdir_p(@dir)
-    @command = Todo::Commands::Init.new :parent => @dir
+    @parent = File.join(Dir.tmpdir, 'todo_tests')
+    @root_path = File.join(@parent, Todo::TODO_DIR)
+    @todo_path = File.join(@parent, Todo::TODO_FILE)
+    @working_path = File.join(@parent, Todo::WORKING_FILE)
+    @done_path = File.join(@parent, Todo::DONE_FILE)
+    @symlink_path = File.join(@parent, Todo::TODO_SYMLINK)
+    FileUtils.rm_rf(@parent)
+    FileUtils.mkdir_p(@parent)
+    @command = Todo::Commands::Init.new :parent => @parent
   end
 
   shared_examples_for "initialized project" do
