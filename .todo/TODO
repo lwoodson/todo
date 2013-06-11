@@ -1,0 +1,19 @@
+* List command
+  * WORKING items
+  * DONE items
+* Nested items
+  * Create parent/child structure for TODO items
+  * Parse to create nesting structure.
+* Move item from TODO to WORKING.
+  * Work command
+  * Remove from TODO file
+  * Add to WORKING file
+  * Capture username from VCS
+    * Abstraction needed
+    * Single impl for git
+* Move item from WORKING to DONE.
+  * Finish command
+  * Remove from WORKING or TODO file
+  * Add to DONE file
+  * Capture username from VCS if moving from TODO
+    * User abstraction from above
