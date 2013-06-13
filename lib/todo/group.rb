@@ -15,11 +15,13 @@ module Todo
     end
 
     def filename
+      raise "group has no title" unless title
       result = title.downcase.gsub(/\s/, '-')
       result.gsub(/[^a-zA-Z0-9\-_]*/, '')
     end
 
     def path
+      raise "group has no parent_dir" unless parent_dir
       File.join(parent_dir, filename)
     end
   end

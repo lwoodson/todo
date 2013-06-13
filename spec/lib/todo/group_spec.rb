@@ -45,6 +45,10 @@ describe Todo::Group do
       subject.title = 'a#@!-:^&*_()1!.?'
       subject.filename.should == 'a-_1'
     end
+
+    it "should raise error if group has no title" do
+      expect{subject.filename}.to raise_error
+    end
   end
 
   describe "#path" do
@@ -52,6 +56,16 @@ describe Todo::Group do
       subject.title = 'test'
       subject.parent_dir = 'tmp'
       subject.path.should == File.join('tmp', 'test')
+    end
+
+    it "should raise error if group has no title" do
+      subject.parent_dir = test_parent
+      expect{subject.path}.to raise_error
+    end
+
+    it "should raise error if group has no parent_dir" do
+      subject.title = 'test'
+      expect{subject.path}.to raise_error
     end
   end
 end
