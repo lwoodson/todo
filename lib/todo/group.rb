@@ -13,5 +13,10 @@ module Todo
     def items
       (@items + []).freeze
     end
+
+    def filename
+      result = title.downcase.gsub(/\s/, '-')
+      result.gsub(/[^a-zA-Z0-9\-_]*/, '')
+    end
   end
 end

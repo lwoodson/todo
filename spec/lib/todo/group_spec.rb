@@ -24,4 +24,26 @@ describe Todo::Group do
       expect{subject.items << 1}.to raise_error
     end
   end
+
+  describe "#filename" do
+    it "should replace spaces with dashes" do
+      subject.title = 'this is a test'
+      subject.filename.should == 'this-is-a-test'
+    end
+
+    it "should replace capitals with lowercase" do
+      subject.title = 'This is A test'
+      subject.filename.should == 'this-is-a-test'
+    end
+
+    it "should preserve letters, dashes, underscores and numbers" do
+      subject.title = 'a-_1'
+      subject.filename.should == 'a-_1'
+    end
+
+    it "should replace funky characters with dash" do
+      subject.title = 'a#@!-:^&*_()1!.?'
+      subject.filename.should == 'a-_1'
+    end
+  end
 end
