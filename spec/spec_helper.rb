@@ -2,6 +2,7 @@ $: << 'lib'
 
 require 'todo'
 require 'tmpdir'
+require 'pry'
 
 module Todo
   module Tests
@@ -44,6 +45,10 @@ module Todo
 
     def todo_contents
       File.read(TODO_FILE)
+    end
+
+    def test_join(*elements)
+      File.join(PARENT, *elements.map(&:to_s))
     end
 
     def test_stream
