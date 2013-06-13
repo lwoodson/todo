@@ -1,1 +1,3 @@
-./.todo/TODO
+* Remove crufty classes
+* Todo::Group#store to write to path as yaml
+* Todo::Group#store to read from path as yaml
