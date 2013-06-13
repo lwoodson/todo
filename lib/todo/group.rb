@@ -1,8 +1,18 @@
 module Todo
   class Group
     attr_accessor :title, :description, :parent_dir
-    def initialize
+    def initialize(opts={})
+      @title = opts[:title]
+      @description = opts[:description]
+      @parent_dir = opts[:parent_dir]
       @items = []
+    end
+
+    def ==(other)
+      title == other.title and
+      description == other.description and
+      parent_dir == other.parent_dir and
+      items == other.items
     end
 
     def <<(item)

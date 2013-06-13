@@ -25,6 +25,39 @@ describe Todo::Group do
     end
   end
 
+  describe "#==" do
+    before do
+      @group = Todo::Group.new :title => 'group',
+                               :description => 'desc',
+                               :parent_dir => test_parent
+
+      @other = Todo::Group.new :title => 'group',
+                               :description => 'desc',
+                               :parent_dir => test_parent
+
+      @other_item = Todo::Item.new
+
+      @group << @item
+      @other << @other_item
+    end
+
+    it "should identify two groups with same data as equivalent" do
+      @group.should == @other
+    end
+
+    %w[title description parent_dir].each do |attr|
+      it "should identify two groups with different #{attr} as not equal" do
+        @other.send("#{attr}=", 'changed')
+        @group.should_not == @other
+      end
+    end
+
+    it "should identify two groups with different items as not equal" do
+      @other_item.title = 'changed'
+      @group.should_not == @other
+    end
+  end
+
   describe "#filename" do
     it "should replace spaces with dashes" do
       subject.title = 'this is a test'
