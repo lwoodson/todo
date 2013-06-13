@@ -1,7 +1,6 @@
 require "todo/version"
 require "todo/item"
 require "todo/group"
-require "todo/file_parser"
 require "todo/commands"
 
 # Dynamically load any commands
