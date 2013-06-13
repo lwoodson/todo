@@ -6,8 +6,8 @@ module Todo
     WORKING_STATUS = 'working'
     DONE_STATUS = 'done'
     STATUSES = [TODO_STATUS, WORKING_STATUS, DONE_STATUS]
-    attr_accessor :index, :title, :worker, :description
-    attr_reader :children, :status
+    attr_accessor :title, :worker, :description
+    attr_reader :children, :status, :index
 
     def initialize(opts={})
       @index = opts[:index]
@@ -38,9 +38,14 @@ module Todo
       end
     end
 
+    def index=(index)
+      raise "Unable to coerce #{index} to int}" unless index.respond_to?(:to_i) 
+      raise "#{index} not positive integer" if index.to_i < 1
+      @index = index.to_i
+    end
+
     private
     def validate!
-      raise "Index must be positive integer" if index.to_i < 1
       raise "Status must be #{STATUSES.join(', ')}" unless STATUSES.include?(status)
     end
   end

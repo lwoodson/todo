@@ -4,30 +4,29 @@ require 'spec_helper'
 
 describe Todo::Item do
   describe "#initialize" do
-    it "should raise an error if the index is zero" do
-      expect{Todo::Item.new :index => 0}.to raise_error
-    end
-
-    it "should raise an error if the index is a negative integer" do
-      expect{Todo::Item.new :index => -1}.to raise_error
-    end
-
-    it "should raise an error if the index cannot be coerced into an integer" do
-      expect{Todo::Item.new :index => Object.new}.to raise_error
-    end
-
-    it "should not raise an error if the index is a positive integer" do
-      expect{Todo::Item.new :index => 1}.to_not raise_error
-    end
-
-    it "should raise an error if the status is not one of todo, working or done" do
-      expect{Todo::Item.new :index => 1, :status => 2}.to raise_error
-    end
-
     Todo::Item::STATUSES.each do |status|
       it "should not raise error if the status is #{status}" do
         expect{Todo::Item.new :index => 1, :status => status}.to_not raise_error
       end
+    end
+  end
+
+  describe "#index=" do
+    it "should work with positive integers" do
+      subject.index = 1
+      subject.index.should == 1
+    end
+
+    it "should fail with negative integers" do
+      expect{subject.index = -1}.to raise_error
+    end
+
+    it "should fail with zero" do
+      expect{subject.index = 0}.to raise_error
+    end
+
+    it "should fail with values that cant be coerced into ints" do
+      expect{subject.index = Object}.to raise_error
     end
   end
 
@@ -69,7 +68,7 @@ describe Todo::Item do
       @item1.should == @item2
     end
 
-    %w[index title worker description].each do |attr|
+    %w[title worker description].each do |attr|
       it "should treat items with different #{attr}s as not equal" do
         @item2.send("#{attr}=", "changed")
         @item1.should_not == @item2
@@ -78,6 +77,11 @@ describe Todo::Item do
 
     it "should treat items with different children as not equal" do
       @item2.children << 2
+      @item1.should_not == @item2
+    end
+
+    it "should treat items with different indexes as not equal" do
+      @item2.index = 2
       @item1.should_not == @item2
     end
   end
