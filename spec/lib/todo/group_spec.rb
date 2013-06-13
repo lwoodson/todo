@@ -46,4 +46,12 @@ describe Todo::Group do
       subject.filename.should == 'a-_1'
     end
   end
+
+  describe "#path" do
+    it "should return the concatenation of the parent_dir and filename" do
+      subject.title = 'test'
+      subject.parent_dir = 'tmp'
+      subject.path.should == File.join('tmp', 'test')
+    end
+  end
 end
