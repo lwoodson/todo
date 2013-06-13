@@ -11,7 +11,7 @@ end
 shared_context "existing project" do
   before do
     create_todo_dir
-    create_symlink
+    create_todo_item_dir
   end
   include_context "existing TODO"
 end
@@ -23,24 +23,15 @@ shared_examples_for "initialized project" do
     Dir.exists?(todo_dir).should == true
   end
 
-  it "should have a TODO file in the .todo directory" do
+  it "should have a TODO file" do
     @command.execute
     File.exists?(todo_file).should == true
   end
+end
 
-  it "should have a WORKING file in the .todo directory" do
-    @command.execute
-    File.exists?(working_file).should == true
-  end
-
-  it "should have a DONE file in the .todo directory" do
-    @command.execute
-    File.exists?(done_file).should == true
-  end
-
-  it "should have a symlink from $ROOT/TODO to $ROOT/.todo/TODO" do
-    @command.execute
-    File.symlink?(todo_symlink).should == true
+shared_examples_for ".todo contents preserver" do
+  it "should preserve original contents of .todo dir" do
+    File.exists?(todo_item_dir).should == true 
   end
 end
 

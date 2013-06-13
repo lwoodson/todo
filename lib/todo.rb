@@ -18,8 +18,5 @@ end
 
 module Todo
   TODO_DIR = '.todo'
-  TODO_FILE = File.join(TODO_DIR, 'TODO')
-  WORKING_FILE = File.join(TODO_DIR, 'WORKING')
-  DONE_FILE = File.join(TODO_DIR, 'DONE')
-  TODO_SYMLINK = 'TODO'
+  TODO_FILE = 'TODO'
 end

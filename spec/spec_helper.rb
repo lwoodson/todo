@@ -8,9 +8,7 @@ module Todo
     PARENT = File.join(Dir.tmpdir, 'todo_tests')
     TODO_DIR = File.join(PARENT, Todo::TODO_DIR)
     TODO_FILE = File.join(PARENT, Todo::TODO_FILE)
-    WORKING_FILE = File.join(PARENT, Todo::WORKING_FILE)
-    DONE_FILE = File.join(PARENT, Todo::DONE_FILE)
-    TODO_SYMLINK = File.join(PARENT, Todo::TODO_SYMLINK)
+    TODO_ITEM_DIR = File.join(TODO_DIR, "1")
 
     def test_parent
       PARENT
@@ -24,32 +22,28 @@ module Todo
       TODO_FILE
     end
 
-    def working_file
-      WORKING_FILE
-    end
-
-    def done_file
-      DONE_FILE
-    end
-
-    def todo_symlink
-      TODO_SYMLINK
+    def todo_item_dir
+      TODO_ITEM_DIR
     end
 
     def create_todo_dir
       FileUtils.mkdir_p(TODO_DIR)
     end
 
-    def create_symlink
-      FileUtils.ln_s(TODO_FILE, TODO_SYMLINK)
+    def create_todo_item_dir
+      FileUtils.mkdir_p(TODO_ITEM_DIR)
+    end
+
+    def create_todo_file
+      FileUtils.touch(TODO_FILE)
     end
 
     def write_todo(text)
-      File.write(TODO_SYMLINK, text)
+      File.write(TODO_FILE, text)
     end
 
     def todo_contents
-      File.read(Todo::Tests::TODO_SYMLINK)
+      File.read(TODO_FILE)
     end
 
     def test_stream

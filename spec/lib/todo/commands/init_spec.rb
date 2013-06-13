@@ -23,6 +23,7 @@ describe Todo::Commands::Init do
       include_context "existing project"
       it_behaves_like "initialized project"
       it_behaves_like "TODO preserver"
+      it_behaves_like ".todo contents preserver"
     end
   end
 end
