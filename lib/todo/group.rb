@@ -25,14 +25,32 @@ module Todo
     end
 
     def filename
+      self.class.filename(title) 
+    end
+
+    def path
+      self.class.path(parent_dir, title) 
+    end
+
+    def store
+      File.open(path, 'w') do |file|
+        file.write(YAML::dump(self))
+      end
+    end
+
+    def self.load(parent_dir, title)
+      YAML::load(File.read(path(parent_dir, title)))
+    end
+
+    def self.filename(title)
       raise "group has no title" unless title
       result = title.downcase.gsub(/\s/, '-')
       result.gsub(/[^a-zA-Z0-9\-_]*/, '')
     end
 
-    def path
+    def self.path(parent_dir, title)
       raise "group has no parent_dir" unless parent_dir
-      File.join(parent_dir, filename)
+      File.join(parent_dir, filename(title))
     end
   end
 end

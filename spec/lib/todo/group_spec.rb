@@ -101,4 +101,34 @@ describe Todo::Group do
       expect{subject.path}.to raise_error
     end
   end
+
+  context "persistence" do
+    before do
+      subject.title = 'test'
+      subject.description = 'desc'
+      subject.parent_dir = test_parent
+
+      item = Todo::Item.new :title => 'item',
+                            :worker => 'lwoodson',
+                            :description => 'desc'
+
+      subject << item
+    end
+
+    describe "#store" do
+      it "should write contents of group to path" do
+        subject.store
+        result = YAML.load(File.read(subject.path))
+        subject.should == result
+      end
+    end
+
+    describe "#load" do
+      it "should read contents of group from path" do
+        subject.store
+        loaded_group = Todo::Group.load(subject.parent_dir, subject.title)
+        loaded_group.should == subject
+      end
+    end
+  end
 end
