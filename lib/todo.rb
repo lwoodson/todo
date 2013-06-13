@@ -1,6 +1,6 @@
 require "todo/version"
 require "todo/item"
-require "todo/item_renderer"
+require "todo/group"
 require "todo/file_parser"
 require "todo/commands"
 
